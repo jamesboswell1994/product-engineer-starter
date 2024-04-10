@@ -41,6 +41,10 @@ yarn.lock
 *.tsbuildinfo
 next-env.d.ts
 
+#Python files
+__pycache__/
+*.py[cod]
+
 # End of https://www.toptal.com/developers/gitignore/api/nextjs
 
 # nvm
