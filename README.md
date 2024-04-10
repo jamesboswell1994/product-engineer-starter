@@ -1,5 +1,6 @@
-View instructions for completing this take-home assignment [here](https://co-helm.notion.site/Senior-Product-Engineer-Take-Home-6e82ec45cc2a46b59a0d9ee3aeb9449c).
+In order to run this project, you may do the following:
 
-Backlog of improvements:
-
-Add field validation on the back end using pydantic validator
+Update your local .env with the secrets shared by email
+Start the python server with the terminal command `uvicorn main:app`
+Start the nextJS app with the terminal command `npm run dev`
+Navigate to http://localhost:3000

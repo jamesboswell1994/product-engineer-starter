@@ -8,10 +8,10 @@ class CasesService:
     def __init__(self) -> None:
         self.db = create_supabase_client()
 
-    def get_case_by_id(self, id: int) -> dict:
-        response = self.db.table("cases").select('*').eq("id", id).execute()
+    def get_case_by_id(self, case_id: int) -> dict:
+        response = self.db.table("cases").select('*').eq("id", case_id).execute()
         if not response.data:
-            raise HTTPException(status_code=404, detail="Case not found")
+            raise HTTPException(status_code=404, detail=f"Case not found for id {case_id}")
         
         case_data = response.data[0]
         created_at = datetime.fromisoformat(case_data['created_at'].replace('Z', '+00:00'))
@@ -40,7 +40,6 @@ class CasesService:
                 detailed_case = self.get_case_by_id(case_record['id'])
                 all_cases.append(detailed_case)
             except HTTPException as e:
-                # Log or handle cases not found if necessary
                 print(f"Case with ID {case_record['id']} not found. Skipping.")
 
         return all_cases

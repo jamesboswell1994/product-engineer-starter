@@ -27,9 +27,9 @@ async def add_case(
         )
 
     return {
-        case_id : case_id,
-        created_at : created_at,
-        status : status
+        'id' : case_id,
+        'created_at' : created_at,
+        'status' : status
     }
 
 @case_router.get("/cases/{case_id}")
@@ -37,8 +37,8 @@ async def get_case(case_id: str):
     cases_service = CasesService()
     case = cases_service.get_case_by_id(case_id)
     if not case:
-        raise HTTPException(status_code=404, detail="Case not found")
-    
+        raise HTTPException(status_code=404, detail=f'No case found for case Id: {case_id}')
+
     return case
 
 @case_router.get("/cases")
@@ -46,5 +46,5 @@ async def get_all_cases():
     cases_service = CasesService()
     cases = cases_service.get_all_cases()
     if not cases:
-        raise HTTPException(status_code=404, detail="Case not found")
+        raise HTTPException(status_code=404, detail="Cases not found")
     return cases
