@@ -6,9 +6,9 @@ interface ProcedureNameProps {
 
 const ProcedureName: React.FC<ProcedureNameProps> = ({ procedure_name }) => {
     return (
-        <li>
+        <div className="flex flex-col">
             <span className="font-bold">Procedure Name:</span> {procedure_name}
-        </li>
+        </div>
     );
 };
 

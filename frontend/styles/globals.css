@@ -6,30 +6,49 @@
     scroll-behavior: smooth;
 }
 
+.loader {
+    margin: auto;
+    border: 20px solid #eaf0f6;
+    border-radius: 50%;
+    border-top: 20px solid #27a743;
+    width: 200px;
+    height: 200px;
+    animation: spinner 4s linear infinite;
+}
+
+@keyframes spinner {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 .AccordionContent {
     overflow: hidden;
-  }
-  .AccordionContent[data-state='open'] {
-    animation: slideDown 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
-  }
-  .AccordionContent[data-state='closed'] {
-    animation: slideUp 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
-  }
-  
-  @keyframes slideDown {
+}
+.AccordionContent[data-state="open"] {
+    animation: slideDown 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.AccordionContent[data-state="closed"] {
+    animation: slideUp 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideDown {
     from {
-      height: 0;
+        height: 0;
     }
     to {
-      height: var(--radix-accordion-content-height);
+        height: var(--radix-accordion-content-height);
     }
-  }
-  
-  @keyframes slideUp {
+}
+
+@keyframes slideUp {
     from {
-      height: var(--radix-accordion-content-height);
+        height: var(--radix-accordion-content-height);
     }
     to {
-      height: 0;
+        height: 0;
     }
-  }
+}

@@ -7,9 +7,9 @@ interface CptCodesProps {
 
 const CptCodes: React.FC<CptCodesProps> = ({ cpt_codes }) => {
     return (
-        <li>
+        <div className="flex flex-col">
             <span className="font-bold">CPT Codes:</span> {cpt_codes.slice(0, 4).join(", ")}
-        </li>
+        </div>
     );
 };
 

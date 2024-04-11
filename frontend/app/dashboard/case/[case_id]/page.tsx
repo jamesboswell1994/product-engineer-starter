@@ -11,58 +11,59 @@ import CaseSummary from "@/components/case_results/case-summary";
 import CaseTimeDetail from "@/components/case_results/case-time-detail/CaseTimeDetail";
 import LlmSteps from "@/components/case_results/llm-steps";
 import FinalDetermination from "@/components/case_results/final-determination/FinalDetermination";
+import Loader from "@/components/loader/loader";
+import { CaseData } from "@/interfaces";
 export default function CaseResult() {
-    const [caseData, setCaseData] = useState({});
+    const [caseData, setCaseData] = useState<CaseData | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const { case_id } = useParams() as { case_id: string };
 
     useEffect(() => {
-        if (case_id) {
-            setLoading(true);
-            axios
-                .get(`http://localhost:8000/cases/${case_id}`)
-                .then((response) => {
-                    setCaseData(response.data);
-                    setLoading(false);
-                })
-                .catch((error) => {
-                    console.error("Failed to fetch case data:", error);
-                    setError(error);
-                    setLoading(false);
-                });
-        } else {
-            setError("Invalid case ID");
-            setLoading(false);
-        }
+        setTimeout(() => {
+            if (case_id) {
+                setLoading(true);
+                axios
+                    .get(`http://localhost:8000/cases/${case_id}`)
+                    .then((response) => {
+                        setCaseData(response.data);
+                        setLoading(false);
+                    })
+                    .catch((error) => {
+                        console.error("Failed to fetch case data:", error);
+                        setError(error);
+                        setLoading(false);
+                    });
+            } else {
+                setError("Invalid case ID");
+                setLoading(false);
+            }
+        }, 2000);
     }, [case_id]);
 
-    if (loading) return <div className="text-center py-4">Loading...</div>;
+    if (loading) return <Loader />;
     if (error) {
-        const errorMessage = error?.detail;
-        return (
-            <div className="text-red-500 text-center py-4">
-                An error occurred: {errorMessage || "Details unavailable"}
-            </div>
-        );
+        return <div className="text-red-500 text-center py-4">An error occurred</div>;
     }
     if (!caseData) return <div className="text-gray-500 text-center py-4">No case data found.</div>;
 
     const { procedure_name, cpt_codes, summary, steps, created_at, is_met } = caseData;
 
     return (
-        <div className="max-w-4xl mx-auto px-4 py-8 bg-gray-100 bg-opacity-50 border border-gray-200 rounded-lg shadow-sm">
+        <div className="max-w-8xl mx-auto px-4 py-8 bg-gray-100 bg-opacity-50 border border-gray-200 rounded-lg shadow-sm">
             <HomepageIcon></HomepageIcon>
             <div className="max-w-4xl mx-auto px-4 py-8">
-                <ResultHeading></ResultHeading>
-                <ul className="list-none space-y-4">
+                <div className="flex flex-col mb-2">
+                    <ResultHeading></ResultHeading>
+                    <CaseTimeDetail created_at={created_at} case_id={case_id} />
+                </div>
+                <div className="flex bg-pablo-100 rounded-md justify-around mb-2">
                     <ProcedureName procedure_name={procedure_name} />
                     <CptCodes cpt_codes={cpt_codes} />
-                    <CaseSummary summary={summary} />
-                    <CaseTimeDetail created_at={created_at} />
-                    <LlmSteps steps={steps} />
                     <FinalDetermination is_met={is_met} />
-                </ul>
+                </div>
+                <CaseSummary summary={summary} />
+                <LlmSteps steps={steps} />
             </div>
         </div>
     );

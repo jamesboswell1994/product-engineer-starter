@@ -6,10 +6,12 @@ interface CaseSummaryProps {
 
 const CaseSummary: React.FC<CaseSummaryProps> = ({ summary }) => {
     return (
-        <li>
-            <span className="font-bold">Case Summary:</span>
-            {summary ? summary : <span className="italic text-gray-400">Awaiting summary</span>}
-        </li>
+        <div>
+            <span className="font-bold text-lg">Case Summary:</span>
+            <p className="text-sm">
+                {summary ? summary : <span className="italic text-gray-400">Awaiting summary</span>}
+            </p>
+        </div>
     );
 };
 
