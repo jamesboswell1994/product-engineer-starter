@@ -1,15 +1,41 @@
-from pydantic import BaseModel
-from typing import Optional
+from typing import List, Optional
+from pydantic import BaseModel, Field
 from datetime import datetime
-## pydantic model for cases. For thoroughness sake, I've made all fields required except a few per my judgment
-class Case(BaseModel):
-    status : str
-    case_id : str
-    procedure_name : str
-    is_met : bool
-    is_complete : bool
-    cpt_codes : list[str]
 
-class CaseSummary(Case):
-    created_at : datetime
-    summary : str
+class Evidence(BaseModel):
+    content: str
+    page_number: int
+    pdf_name: str
+    event_datetime: Optional[datetime] = None
+
+class Option(BaseModel):
+    key: str
+    text: str
+    selected: bool
+
+class Logic(BaseModel):
+    text: str
+    selected: bool
+
+class Step(BaseModel):
+    key: str
+    question: str
+    options: List[Option]
+    logic: Optional[List[Logic]] = None  # Correct use of Optional for a possibly None field
+    reasoning: str
+    decision: str
+    next_step: str
+    is_met: bool
+    is_final: bool
+    evidence: Optional[List[Evidence]] = None
+
+class Case(BaseModel):
+    case_id: str = Field(..., alias='case_id')
+    procedure_name: str
+    cpt_codes: List[str]
+    status: str
+    is_met: bool
+    is_complete: bool
+    # simplest is to allow the summary and the steps to be optional, to accomodate the wait portion
+    summary: Optional[str] = None
+    steps: Optional[List[Step]] = None
