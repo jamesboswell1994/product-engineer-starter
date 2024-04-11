@@ -1,4 +1,4 @@
-from fastapi import HTTPException, status
+from fastapi import HTTPException
 from schemas.case import Case
 from services.cases import CaseProcessor, CaseRepository
 

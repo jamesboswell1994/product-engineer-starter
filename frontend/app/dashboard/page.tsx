@@ -5,14 +5,13 @@ import MedicalRecordUpload from "@/components/dashboard/medical-record-upload";
 import { useDashboard } from "@/context/dashboard-context";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-export const revalidate = 0;
 
 // removed the async declaration as it isn't needed, and causes conflict with the use client directive
 export default function DashboardRoot() {
     const router = useRouter();
 
+    // sample case object to insert. Back end will throw errors if any fields except steps or summary are missing
     const handleContinue = () => {
-        // sample case object to insert
         const caseObject = {
             case_id: "case_123atest",
             status: "submitted",
@@ -34,6 +33,7 @@ export default function DashboardRoot() {
             });
     };
 
+    // use the dashboard context to validate that both uploads have occurred
     const { medicalRecord, guidelinesFile } = useDashboard();
     const uploadsFinished = medicalRecord && guidelinesFile;
 
@@ -43,6 +43,7 @@ export default function DashboardRoot() {
                 <MedicalRecordUpload />
                 <GuidelinesUpload />
             </div>
+            {/* Show the continue button only if both uploads are complete */}
             {uploadsFinished && (
                 <div className="w-full py-4 flex flex-row justify-center">
                     <button

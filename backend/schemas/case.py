@@ -21,7 +21,7 @@ class Step(BaseModel):
     key: str
     question: str
     options: List[Option]
-    logic: Optional[List[Logic]] = None  # Correct use of Optional for a possibly None field
+    logic: Optional[List[Logic]] = None 
     reasoning: str
     decision: str
     next_step: str
@@ -36,6 +36,6 @@ class Case(BaseModel):
     status: str
     is_met: bool
     is_complete: bool
-    # simplest is to allow the summary and the steps to be optional, to accomodate the wait portion
+    # simplest is to allow the summary and the steps to be optional, to accommodate the wait portion
     summary: Optional[str] = None
     steps: Optional[List[Step]] = None

@@ -1,11 +1,12 @@
 import json
 
+# standard json data retrieval, takes a file path and optional data key
+
 def read_json(file_path, data_key=None):
     try:
         with open(file_path, 'r') as file:
             data = json.load(file)
             if data_key:
-                # Split the key on '.' and reduce the data to what we're interested in
                 for key in data_key.split('.'):
                     data = data[key]
             return data

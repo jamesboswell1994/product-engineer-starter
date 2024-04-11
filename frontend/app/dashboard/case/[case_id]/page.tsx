@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import axios from "axios";
-import { formatDistance } from "date-fns";
 import HomepageIcon from "@/components/case_results/homepage_icon";
 import ResultHeading from "@/components/case_results/result-heading";
 import ProcedureName from "@/components/case_results/procedure-name";
@@ -14,6 +13,7 @@ import FinalDetermination from "@/components/case_results/final-determination/Fi
 import Loader from "@/components/loader/loader";
 import { CaseData } from "@/interfaces";
 import HowToInterpretButton from "@/components/case_results/interpret-button";
+
 export default function CaseResult() {
     const [caseData, setCaseData] = useState<CaseData | null>(null);
     const [loading, setLoading] = useState(true);
@@ -21,6 +21,7 @@ export default function CaseResult() {
     const { case_id } = useParams() as { case_id: string };
 
     useEffect(() => {
+        // this setTimeout enables the fabricated loading screen
         setTimeout(() => {
             if (case_id) {
                 setLoading(true);
@@ -42,12 +43,16 @@ export default function CaseResult() {
         }, 2000);
     }, [case_id]);
 
+    // loading is set in the useEffect based on caseId being properly appended to the query param
     if (loading) return <Loader />;
     if (error) {
         return <div className="text-red-500 text-center py-4">An error occurred</div>;
     }
+
+    // if the API returns no data, we relay this to the user
     if (!caseData) return <div className="text-gray-500 text-center py-4">No case data found.</div>;
 
+    // all used in props
     const { procedure_name, cpt_codes, summary, steps, created_at, is_met } = caseData;
 
     return (

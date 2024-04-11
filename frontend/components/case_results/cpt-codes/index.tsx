@@ -1,6 +1,5 @@
 import React from "react";
 
-// Define TypeScript interface for the component props
 interface CptCodesProps {
     cpt_codes: string[];
 }

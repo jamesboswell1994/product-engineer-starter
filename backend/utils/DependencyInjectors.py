@@ -1,9 +1,9 @@
-# These are dependency injection functions used in the routers, are self-explanatory
-
 from services.cases.CasesService import CasesService
 from services.cases.CaseRepository import CaseRepository 
 from services.cases.CaseProcessor import CaseProcessor   
 from utils.SupabaseUtil import create_supabase_client 
+
+# These are dependency injection functions used in the routers, are self-explanatory
 
 def get_cases_service() -> CasesService:
     case_repository = CaseRepository()
