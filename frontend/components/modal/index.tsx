@@ -9,7 +9,7 @@ interface IModalProps {
     onClose: () => void;
     show: boolean;
     size?: string;
-    show_close_button?: boolean
+    show_close_button?: boolean;
 }
 
 export default function Modal(props: IModalProps) {
@@ -42,10 +42,9 @@ export default function Modal(props: IModalProps) {
                                 animate={{ scale: 1 }}
                                 exit={{ scale: 0.95 }}
                                 className={classNames(
-                                    "relative shadow-lg overflow-hidden flex flex-col relative rounded-xl",
+                                    "relative bg-white shadow-lg overflow-hidden flex flex-col relative rounded-xl",
                                     size === "default" ? "w-[98dvw] sm:w-[620px] h-[95dvh]" : null
-                                )}
-                            >
+                                )}>
                                 {show_close_button && (
                                     <button
                                         className={`
@@ -55,8 +54,7 @@ export default function Modal(props: IModalProps) {
                                         `}
                                         style={{ zIndex: 999 }}
                                         type="button"
-                                        onClick={onClose}
-                                    >
+                                        onClick={onClose}>
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             className="h-6 w-6"
@@ -65,20 +63,9 @@ export default function Modal(props: IModalProps) {
                                             stroke="currentColor"
                                             strokeWidth="2"
                                             strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                        >
-                                            <line
-                                                x1="18"
-                                                y1="6"
-                                                x2="6"
-                                                y2="18"
-                                            />
-                                            <line
-                                                x1="6"
-                                                y1="6"
-                                                x2="18"
-                                                y2="18"
-                                            />
+                                            strokeLinejoin="round">
+                                            <line x1="18" y1="6" x2="6" y2="18" />
+                                            <line x1="6" y1="6" x2="18" y2="18" />
                                         </svg>
                                     </button>
                                 )}
@@ -108,7 +95,7 @@ function Portal(props: IPortalProps) {
         if (!element) return;
 
         ref.current = element;
-        
+
         setMounted(true);
     }, [selector]);
 

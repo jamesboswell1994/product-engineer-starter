@@ -13,6 +13,7 @@ import LlmSteps from "@/components/case_results/llm-steps";
 import FinalDetermination from "@/components/case_results/final-determination/FinalDetermination";
 import Loader from "@/components/loader/loader";
 import { CaseData } from "@/interfaces";
+import HowToInterpretButton from "@/components/case_results/interpret-button";
 export default function CaseResult() {
     const [caseData, setCaseData] = useState<CaseData | null>(null);
     const [loading, setLoading] = useState(true);
@@ -50,7 +51,7 @@ export default function CaseResult() {
     const { procedure_name, cpt_codes, summary, steps, created_at, is_met } = caseData;
 
     return (
-        <div className="max-w-8xl mx-auto px-4 py-8 bg-gray-100 bg-opacity-50 border border-gray-200 rounded-lg shadow-sm">
+        <div className="max-w-8xl mx-auto px-4 py-8 bg-sky-light bg-opacity-90 border border-gray-200 rounded-lg shadow-lg">
             <HomepageIcon></HomepageIcon>
             <div className="max-w-4xl mx-auto px-4 py-8">
                 <div className="flex flex-col mb-2">
@@ -63,6 +64,7 @@ export default function CaseResult() {
                     <FinalDetermination is_met={is_met} />
                 </div>
                 <CaseSummary summary={summary} />
+                <HowToInterpretButton />
                 <LlmSteps steps={steps} />
             </div>
         </div>

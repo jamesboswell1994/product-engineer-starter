@@ -12,7 +12,7 @@ const HowToInterpretButton: React.FC = () => {
         <>
             <button
                 onClick={toggleModal}
-                className="bg-blue-500 hover:bg-blue-600 text-white font-bold mb-2 mt-2 py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                className="bg-pablo-200 hover:bg-pablo-500 text-white font-bold mb-2 mt-2 py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                 How to interpret LLM steps
             </button>
             <Modal show={showModal} onClose={toggleModal} size="default" show_close_button>

@@ -17,12 +17,12 @@ interface LlmStepsProps {
 
 const LlmSteps: React.FC<LlmStepsProps> = ({ steps }) => {
     return (
-        <li>
-            <span className="font-bold block mb-2">LLM Steps:</span>
+        <div>
+            <span className="font-bold block mb-2 text-lg">LLM Steps:</span>
             {steps?.length > 0 ? (
                 <ul className="list-disc list-inside">
                     {steps.map((step, index) => (
-                        <li key={index} className="ml-4">
+                        <div key={index} className="ml-4">
                             <span className="font-semibold">Question:</span> {step.question}
                             <ul className="list-circle ml-6 mt-2">
                                 {step.options.map((option, optionIndex) => (
@@ -35,14 +35,14 @@ const LlmSteps: React.FC<LlmStepsProps> = ({ steps }) => {
                                     </li>
                                 ))}
                             </ul>
-                            <p className="mt-2">Reasoning: {step.reasoning}</p>
-                        </li>
+                            <p className="mt-2 text-sm mb-2">Reasoning: {step.reasoning}</p>
+                        </div>
                     ))}
                 </ul>
             ) : (
-                <p className="italic text-gray-400">Steps not available</p>
+                <p className="italic text-gray-400">Awaiting LLM step readout</p>
             )}
-        </li>
+        </div>
     );
 };
 
